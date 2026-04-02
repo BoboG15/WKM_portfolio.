@@ -7,6 +7,7 @@
 
 html, body {
     height: 100%;
+    position: relative;
 }
 
 body {
@@ -16,7 +17,7 @@ body {
     line-height: 1.6;
 }
 
-/* Sidebar Navigation - Always visible on all screens */
+/* Sidebar Navigation - Hidden on mobile, always visible on desktop */
 .sidebar-nav {
     position: fixed;
     top: 0;
@@ -38,27 +39,29 @@ body {
     display: none;
 }
 
-@media (max-width: 768px) {
-    /* On mobile, make sidebar smaller */
+@media (max-width: 1024px) {
+    /* Hide sidebar on tablet/mobile by default */
     .sidebar-nav {
-        left: 0;
+        left: -100%;
         top: 0;
-        width: 70%;
-        max-width: 280px;
+        width: 85%;
+        max-width: 320px;
         height: 100%;
+        transition: left 0.3s ease;
+        z-index: 3000;
     }
     
     .sidebar-nav.active {
         left: 0;
     }
     
-    /* Show hamburger menu on mobile */
+    /* Show hamburger menu on mobile/tablet */
     .menu-toggle {
         display: flex;
         position: fixed;
         top: 20px;
         left: 20px;
-        z-index: 1000;
+        z-index: 2500;
         background: #f5c518;
         border: none;
         border-radius: 5px;
@@ -85,7 +88,7 @@ body {
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.7);
-        z-index: 1500;
+        z-index: 2800;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s, visibility 0.3s;
@@ -94,6 +97,11 @@ body {
     .sidebar-overlay.active {
         opacity: 1;
         visibility: visible;
+    }
+    
+    /* Main content takes full width on mobile */
+    .main-content {
+        margin-left: 0;
     }
 }
 
@@ -238,6 +246,15 @@ body {
 .main-content {
     margin-left: 220px;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    /* Main content takes full width on mobile/tablet */
+    .main-content {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 768px) {
@@ -264,6 +281,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.15;
+    visibility: visible !important;
+    display: block !important;
 }
 
 /* Home Page Background */
@@ -1055,7 +1074,7 @@ section .lead {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     /* Show menu toggle on mobile */
     .menu-toggle {
         display: flex !important;
